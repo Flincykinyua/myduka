@@ -1,6 +1,6 @@
 import psycopg2
 
-conn=psycopg2.connect(user="postgres", host="localhost" ,ports="5432", password="flincy" , database="")
+conn=psycopg2.connect(user="postgres", host="localhost" ,port=5432, password="flincy" , database="")
 
 cur = conn.cursor()
 print("[+] Database connected successfull")

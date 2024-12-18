@@ -1,5 +1,5 @@
 from flask import Flask,render_template,request,redirect,session
-from database import conn, cur
+from database import  curr
 
 # flask name initiates app- class obj
 app = Flask(__name__)
