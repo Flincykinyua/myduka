@@ -1,6 +1,6 @@
 import psycopg2
 
-conn=psycopg2.connect(user="postgres", host="localhost" ,port=5432, password="flincy" , database="")
+conn=psycopg2.connect(user="postgres", host="localhost" ,port=5432, password="flincy" , database="myduka")
 
 cur = conn.cursor()
 print("[+] Database connected successfull")
@@ -8,13 +8,13 @@ print("[+] Database connected successfull")
 query="select * from products ;"
 cur.execute(query)
 products=cur.fetchall()
-print(products)
+# print(products)
 
 
 query ='select * from sales ;'
 cur.execute(query)
 sales=cur.fetchall()
-print(sales)
+# print(sales)
 
 def fetch_data(table_name):
     query=f"select * from {table_name}"
@@ -23,11 +23,11 @@ def fetch_data(table_name):
     return(data)
 
 z=fetch_data("products")
-print(z)
+# print(z)
 
 query="insert into products(name,buying_price,selling_price,stock_quantity)values('lemon',100,200,50);"
 cur.execute(query)
 conn.commit()
 
 products=fetch_data("products")
-print(products)
+# print(products)
