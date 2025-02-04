@@ -1,4 +1,4 @@
-from flask import Flask,render_template,request,redirect,session
+from flask import Flask,render_template,request,redirect,session, flash, url_for
 from database import conn, cur
 from functools import wraps
 
@@ -113,10 +113,10 @@ def reg():
 
 
 @app.route("/products", methods=["GET", "POST"])
+# @login_required
 #get is fetching from database and post is getting from form which is filled and posted
 #model view controller uses this to get data from database and send it to view-which works across all frameworks
 def products():
-
     if request.method == "GET":
         cur.execute("SELECT * FROM products order by id desc")
         products = cur.fetchall()
@@ -138,8 +138,53 @@ def products():
         conn.commit()
         return redirect("/products")
         
+@app.route('/products/delete/<int:id>', methods=['POST'])
+def delete_product(id):
+    try:
+        # Check if the product is referenced in sales
+        cur.execute("SELECT COUNT(*) FROM sales WHERE pid = %s", (id,))
+        count = cur.fetchone()[0]
+
+        if count > 0:
+            flash("Cannot delete product. It has associated sales.", "danger")
+            return redirect(url_for('products'))
+
+        # If no sales exist, proceed with deletion
+        cur.execute("DELETE FROM products WHERE id = %s", (id,))
+        conn.commit()
+        flash("Product deleted successfully.", "success")
+
+    except Exception as e:
+        conn.rollback()
+        flash(f"Error: {e}", "danger")
+
+    return redirect(url_for('products'))
+
+@app.route('/products/edit/<int:id>', methods=['GET', 'POST'])
+def edit_product(id):
+    if request.method == 'GET':
+        cur.execute("SELECT * FROM products WHERE id = %s", (id,))
+        product = cur.fetchone()
+        return render_template("edit_product.html", product=product)
+    else:
+        name = request.form["name"]
+        buying_price = float(request.form["bp"])
+        selling_price = float(request.form["sp"])
+        stock_quantity = int(request.form["stqu"])
         
-    
+        if selling_price < buying_price:
+            flash("Selling price must be greater than buying price!", "warning")
+            return redirect(url_for("products"))
+        
+        cur.execute(
+            """UPDATE products 
+            SET name=%s, buying_price=%s, selling_price=%s, stock_quantity=%s 
+            WHERE id=%s""",
+            (name, buying_price, selling_price, stock_quantity, id)
+        )
+        conn.commit()
+        flash("Product updated successfully", "success")
+        return redirect(url_for('products'))
 
 @app.route("/sales",methods=["GET", "POST"])
 def salez():

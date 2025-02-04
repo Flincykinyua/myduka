@@ -14,32 +14,71 @@
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="styles.css">
   </head>
+<style>
+  body{
+    background: skyblue;
+  }
+  form {
+    width: 600px;
+    margin: 0 auto; /* Center the form horizontally */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
+    padding: 20px; /* Adds some padding for better appearance */
+    background-color: rgba(0, 0, 0, 0.1); /* Optional: Adds a white background */
+    border-radius: 8px; /* Optional: Rounds the corners */
+  }
+</style>
+  
   <body>
+    <nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
+      <nav class="navbar navbar-expand-lg bg-body-tertiary">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="#">Flincy</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/dashboard">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/products">Products</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/sales">Sales</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/logout">Logout</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+    </nav>
 
-    <div class="container" mb-3>
-          <!-- dl tag is used for description list -->
-    <form action="/login" method="POST">
-      <label for="" class="form-label">email</label>
-      <input type="email" name="mail" />
-      <label for="">password</label>
-      <input type="password" name="passw" />
-      <input type="submit" value="LogIn" />
-    </form>
-
-    <a href="/register">Dont have an account?Click Register Now!</a>
-
-    </div>
     <!-- dl tag is used for description list -->
-    <form action="/login" method="POST">
-      <label for="">email</label>
-      <input type="email" name="mail" />
-      <label for="">password</label>
-      <input type="password" name="passw" />
-      <input type="submit" value="LogIn" />
-    </form>
 
-    <a href="/register">Dont have an account?Click Register Now!</a>
+<div class="container" style="width: 500px; margin-top: 10%; border-radius: 5px;">
+
+  <form>
+    <h3 align="Center">Login</h3>
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Email address</label>
+      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="mail">
+      <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">Password</label>
+      <input type="password" class="form-control" id="exampleInputPassword1" name="passw">
+    </div>
+    <button type="submit" class="btn btn-primary" value="login" style="margin-bottom: 20px;">Submit</button>
+  </form>
+</div>
 
     <script
       src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
